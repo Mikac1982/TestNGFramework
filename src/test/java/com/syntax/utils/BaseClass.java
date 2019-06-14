@@ -16,8 +16,8 @@ public class BaseClass {
     @BeforeMethod(alwaysRun=true) 
     public static void setUp() {
         //we are bringing our property file:
-    	//we are bringing filePath from Constants class
-    	ConfigsReader.readProperties(Constants.CREDENTIALS_FILEPATH);
+    	//we are bringing filePath from Constants Class and read it using readProperties method
+    	ConfigsReader.readProperties(Constants.CREDENTIALS_FILEPATH);//src/test/resources/configs/credentials.properties
     	//we are getting value of property browser key->String browser
     	String browser=ConfigsReader.getProperty("browser");
     	
@@ -26,7 +26,7 @@ public class BaseClass {
 		    System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver");	
 		        //for WINDOWS
 		  //System.setProperty("webdriver.chrome.driver", "src/drivers/chromedriver.exe");	
-		    driver=new ChromeDriver();
+		    driver=new ChromeDriver(); //initializing our variable that holds our browser-chrome
 		    
 		}else if (browser.equalsIgnoreCase("firefox")) {
 		    System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver");
@@ -43,6 +43,7 @@ public class BaseClass {
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
+		//we are getting url from property file, ConfigsReader class read this file
 		driver.get(ConfigsReader.getProperty("url"));
 	}
 	
