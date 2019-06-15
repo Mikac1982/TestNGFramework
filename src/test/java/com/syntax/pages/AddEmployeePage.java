@@ -46,8 +46,8 @@ public class AddEmployeePage extends BaseClass{
     @FindBy(id="systemUserSaveBtn")
     public WebElement saveBtn;
     
-    @FindBy(xpath="//span[text()='Add Employee']")
-    public WebElement empCheck;
+    @FindBy(id="pim.navbar.employeeName")
+	public WebElement empCheck;;
     
     
     

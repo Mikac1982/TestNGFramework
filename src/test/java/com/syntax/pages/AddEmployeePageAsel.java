@@ -38,9 +38,5 @@ public class AddEmployeePageAsel extends BaseClass{
     public AddEmployeePageAsel() {
         PageFactory.initElements(driver,this);
     }
-	
-	
-	
-	
-	
 }
+

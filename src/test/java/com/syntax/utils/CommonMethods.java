@@ -339,21 +339,18 @@ public class CommonMethods extends BaseClass{
 	   js.executeScript("arguments[0].click();", element);
    }
    
+   
    public static void selectList(WebElement element, String text) {
-   List<WebElement> listLocations=element.findElements(By.tagName("li"));
-   
-   for (WebElement li: listLocations) {
-   	
-   	String liText=li.getAttribute("innerHTML").trim();  //returns a text
-   
 
-		if(liText.contains("HQ")){
-			li.click();
-			break;
+		List<WebElement> listLocations = element.findElements(By.tagName("li"));
+		for (WebElement li : listLocations) {
+			String liText = li.getAttribute("innerHTML");
+
+			if (liText.contains(text)) {
+				li.click();
+				break;
+			}
 		}
 	}
-   }
-   
-   
    
 }

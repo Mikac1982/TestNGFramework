@@ -52,15 +52,16 @@ public class AddEmployeePageTest extends BaseClass{
         //drop down written using <li> tag, not <select
         //using common method for SelectList
         CommonMethods.selectList(addEmp.locationList, location);
-        
         CommonMethods.click(addEmp.saveBtn);
         
         //verify employee is added
     	CommonMethods.waitForElementBeClickable(addEmp.empCheck, 20);
-        String verifText=addEmp.empCheck.getAttribute("innerHTML");
+    	String verifText=addEmp.empCheck.getText();
+    //  String verifText=addEmp.empCheck.getText().trim();
         System.out.println(verifText);
         Assert.assertEquals(verifText, fName+" "+lName); //3 times will execute 
-        
+        System.out.println("Employee was successfully added");
+
         
         Thread.sleep(2000);
     }

@@ -59,6 +59,4 @@ public class AddEmployyePageTestAsel extends BaseClass{
 		data[2][3]="North Office";
 		return data;
 	}
-	
-	
 }

@@ -40,7 +40,7 @@ public class LoginPageTest extends BaseClass{
 		CommonMethods.sendText(login.password, ConfigsReader.getProperty("password"));
 		CommonMethods.click(login.loginBtn);
 		
-		//creating object of HomePage class
+		//creating object of HomePage class (to verify successfully login)
 		HomePage home=new HomePage();
 		boolean isDisplayed=home.dashboardText.isDisplayed();
 		

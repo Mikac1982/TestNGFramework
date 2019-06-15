@@ -9,9 +9,9 @@ import com.syntax.utils.CommonMethods;
                      //so we can access to driver
 public class LoginPage extends BaseClass{
 
-	//locating WebElements using @FindBy annotation
+	//locating WebElements using (another way) @FindBy annotation--> Page Factory
 	@FindBy(id="txtUsername")
-	public WebElement userName;
+	public WebElement userName;  //instance variables
 	
 	@FindBy(id="txtPassword")
 	public WebElement password;
@@ -27,13 +27,14 @@ public class LoginPage extends BaseClass{
 	public WebElement errorText;
 	
 
-	//someone have to perform initialization of our variables
-	//constructor is doing that:
+	//someone have to perform initialization of instance variables
+	//CONSTRUCTOR is initializing instance variables using PageFactory class
 	public LoginPage() {
 		//there are 4 static methods--> 4 different ways to initialize all the variables
 		PageFactory.initElements(driver, this);
 	}
 	
+	//we create method for login (for any action we want do do, first we have to login using this method)
 	//to Add Employee Details:
 	//step 1: login to OrangeHRM 
 	public void login(String uname, String pwd) {

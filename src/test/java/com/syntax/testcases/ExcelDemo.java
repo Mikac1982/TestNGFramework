@@ -12,17 +12,18 @@ public class ExcelDemo{
 	@Test
 	public void readExcel() throws IOException {
 		
+		//file from which we want to bring the flow
         String xlPath="src/test/resources/testdata/OrangeHrmData.xlsx";
-
         FileInputStream fis =new FileInputStream(xlPath);
-
+        
+        //to read excel file we have class XSSWorkbook
         XSSFWorkbook workbook=new XSSFWorkbook(fis);
 
         XSSFSheet sheet=workbook.getSheet("EmployeeDetails");
         //accessing 2 row and 4 column
         String value = sheet.getRow(1).getCell(3).toString();
-
         System.out.println(value);
+        
         //accessing 5 row and 1 column
         String value2=sheet.getRow(4).getCell(0).toString();
         System.out.println(value2);
@@ -44,8 +45,9 @@ public class ExcelDemo{
             }
             System.out.println();
         }
-        workbook.close();
-        fis.close();
+        
+        workbook.close();   //to close workbook
+        fis.close();  //to close the stream
     }
 
 	
