@@ -1,13 +1,13 @@
 package com.syntax.testcases;
 
 import org.testng.annotations.Test;
-import org.testng.AssertJUnit;
+
 import org.testng.annotations.Test;
-import org.testng.AssertJUnit;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import org.testng.AssertJUnit;
+
 import org.testng.annotations.Test;
 
 import com.syntax.pages.HomePage;
@@ -25,12 +25,21 @@ public class LoginPageTest extends BaseClass{
 	//first way of login without using FactoryClass(hard coding)
 	@Test(groups="smoke")
 	public void loginToOrangeHRM() {
+		
+		test=report.createTest("loginToOrangeHrm");
 		//we create object of class LoginPageWithoutPageFactory to test all elements
 		LoginPageWithoutPageFactory login=new LoginPageWithoutPageFactory();
-		                                     //hard coding!
+		
+		test.info("Logging in with valid credentials"); 
+		
+		//hard coding!
 		CommonMethods.sendText(login.userName, "Admin");
 		CommonMethods.sendText(login.password, "poFm62MA@Z");
 		CommonMethods.click(login.btnLogin);
+		
+		test.info("Verifying dashboard text is displayed");
+		
+		
 	}
 	
 	//second way of login, but with reading from property file;
@@ -49,7 +58,8 @@ public class LoginPageTest extends BaseClass{
 		boolean isDisplayed=home.dashboardText.isDisplayed();
 		
 	//	Assert.assertEquals(isDisplayed, true);
-		AssertJUnit.assertTrue(isDisplayed);
+	//    Assert.assertTrue(isDisplayed);
+		Assert.assertTrue(false);
 		System.out.println("Successfully logged in");
 		
 	}
@@ -63,11 +73,13 @@ public class LoginPageTest extends BaseClass{
 		//create object of LoginPage
 		LoginPage login=new LoginPage();
 	   
+		test.info("Login in with invalid credentials");
+		
 		//one way: using login method from LoginPage
 		login.login("admins", "test");
 		String errorText=login.errorText.getText();
-		
-		AssertJUnit.assertEquals(errorText, "Invalid Credentials");
+		test.info("");
+		Assert.assertEquals(errorText, "Invalid Credentials");
 		
 		//the other way:
 		

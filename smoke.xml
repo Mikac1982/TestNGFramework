@@ -5,13 +5,17 @@
 		<run>
 			<include name="smoke" />
 		</run>
-		
+
 	</groups>
-	
+
+	<listeners>
+		<listener class-name="com.syntax.utils.Listeners" />
+	</listeners>
+
 	<test thread-count="5" name="Smoke Test">
 		<packages>
-			<package name="com.syntax.testcases"/>
-			
+			<package name="com.syntax.testcases" />
+
 		</packages>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

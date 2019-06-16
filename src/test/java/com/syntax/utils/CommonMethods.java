@@ -297,18 +297,20 @@ public class CommonMethods extends BaseClass{
     * Method that will take screen shoot 
     * @param String folderName, String FileName
     */
-   public static void takeScreenshoot(String folderName, String FileName ) {
-	   
-	    TakesScreenshot ts=(TakesScreenshot)driver;
-		File src=ts.getScreenshotAs(OutputType.FILE); //dynamic
+   public static String takeScreenshot(String fileName) {
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File scr = ts.getScreenshotAs(OutputType.FILE);
+
+		String dest=System.getProperty("user.dir")+"/target/screenshots/"+ fileName + ".png";
 		
 		try {
-			FileUtils.copyFile(src, new File("screenshots/"+folderName+"/"+FileName+".png")); //dynamic
+			FileUtils.copyFile(scr, new File(dest));
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Screenshot was not taken");
+			System.out.println("Unable to take screesnhot");
 		}
-   }
+		return dest;
+	}
    /**
     * Method that will perform scroll down 
     * @param int pixels

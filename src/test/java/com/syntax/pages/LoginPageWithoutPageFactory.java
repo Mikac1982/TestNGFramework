@@ -24,6 +24,9 @@ public class LoginPageWithoutPageFactory extends BaseClass{
 	@FindBy(id="btnLogin")
 	public WebElement btnLogin;
 	
+	@FindBy(css="div[class='toast-message']")
+	public WebElement errorText;
+	
 	public LoginPageWithoutPageFactory() {
 		//initializing page object using initElements() method from PageFactory Class
 		PageFactory.initElements(driver, this);
