@@ -1,6 +1,11 @@
 package com.syntax.testcases;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.AssertJUnit;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -10,34 +15,62 @@ import com.syntax.pages.LoginPage;
 import com.syntax.utils.BaseClass;
 import com.syntax.utils.CommonMethods;
 import com.syntax.utils.ConfigsReader;
+import com.syntax.utils.Constants;
+import com.syntax.utils.ExcelUtility;
 
 public class AddEmployyePageTestAsel extends BaseClass{
 
-	@Test(dataProvider="employee details")
+	@Test(dataProvider="Employee Data", groups="regression")
+//	@Test(dataProvider="Employee Data", groups="regression")
 	public void addEmployee(String fName, String mName,String lName, String location) throws InterruptedException {
 
-		LoginPage login = new LoginPage();
-		HomePage home =new HomePage();
-		AddEmployeePage addEmp=new AddEmployeePage();
-		//login to the OrangeHRM
-		login.login(ConfigsReader.getProperty("username"), ConfigsReader.getProperty("password"));
-		//navigate to add Employee
-		CommonMethods.click(home.PIM);
-		CommonMethods.click(home.addEmployee);
-		//enter employee details
-		CommonMethods.sendText(addEmp.firstName, fName);
-		CommonMethods.sendText(addEmp.middleName, mName);
-		CommonMethods.sendText(addEmp.lastName, lName);
-		CommonMethods.click(addEmp.location);
-		CommonMethods.selectList(addEmp.locationList, location);
-		CommonMethods.click(addEmp.saveBtn);
-		//verify employee is added
-		CommonMethods.waitForElementBeClickable(addEmp.empCheck, 20);
+	LoginPage login = new LoginPage();
+	HomePage home =new HomePage();
+	AddEmployeePage addEmp=new AddEmployeePage();
+	//login to the OrangeHRM
+	login.login(ConfigsReader.getProperty("username"), ConfigsReader.getProperty("password"));
+	//navigate to add Employee
+	CommonMethods.click(home.PIM);
+	CommonMethods.click(home.addEmployee);
+	//enter employee details
+	CommonMethods.sendText(addEmp.firstName, fName);
+	CommonMethods.sendText(addEmp.middleName, mName);
+	CommonMethods.sendText(addEmp.lastName, lName);
+	CommonMethods.click(addEmp.location);
+	CommonMethods.selectList(addEmp.locationList, location);
+	
+	CommonMethods.click(addEmp.saveBtn);
+	//verify employee is added
+//		CommonMethods.waitForElementBeClickable(addEmp.empCheck, 20);
 		String verifText=addEmp.empCheck.getText();
 		System.out.println(verifText);
 		Assert.assertEquals(verifText, fName+" "+lName);
+		AssertJUnit.assertEquals(verifText, fName+" "+lName);
 	}
-	
+
+	@DataProvider(name="Employee Data")
+	public Object[][] getEmpData() {
+
+		ExcelUtility obj=new ExcelUtility();
+		obj.openExcel(Constants.XL_FILEPATH, "Sheet1");
+
+		int rows=obj.getRowNum();//13
+		int cols=obj.getColNum(0);//4
+
+		Object[][] data=new Object[rows-1][cols];//new Object[12][4]
+
+		for (int i=1; i<rows; i++) {
+			for (int j=0; j<cols; j++) {
+				String value=obj.getCellData(i, j);
+				//at first iteration data[1][0]
+
+				//at last iteration data[12][3]
+				data[i-1][j]=value;//data[0][0];
+			}
+		}
+		return data;
+	}
+
 	@DataProvider(name = "employee details")
 	public Object[][] getData() {
 		
@@ -56,7 +89,8 @@ public class AddEmployyePageTestAsel extends BaseClass{
 		data[2][0]="Arya";
 		data[2][1]="Sunny";
 		data[2][2]="Blue";
-		data[2][3]="North Office";
-		return data;
+			data[2][3]="North Office";
+			return data;
+		}
+	
 	}
-}

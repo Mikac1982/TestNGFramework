@@ -1,5 +1,9 @@
 package com.syntax.testcases;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -19,7 +23,7 @@ public class LoginPageTest extends BaseClass{
     LoginPageWithoutPageFactory login;
 	
 	//first way of login without using FactoryClass(hard coding)
-	@Test(enabled=false)
+	@Test(groups="smoke")
 	public void loginToOrangeHRM() {
 		//we create object of class LoginPageWithoutPageFactory to test all elements
 		LoginPageWithoutPageFactory login=new LoginPageWithoutPageFactory();
@@ -31,7 +35,7 @@ public class LoginPageTest extends BaseClass{
 	
 	//second way of login, but with reading from property file;
 	//no hard coding as in previous one
-	@Test
+	@Test(groups="smoke")
 	public void doLogin() {
 		//when we test, ALWAYS HAVE TO CREATE AN OBJECT OF THAT CLASS!
 		LoginPage login=new LoginPage();
@@ -54,7 +58,7 @@ public class LoginPageTest extends BaseClass{
 	 *Note: we have to identify element on LoginPage not HomePage
 	 *for negative login we don't go to properties file to change value, just do hard coding 	
 	 */
-	@Test
+	@Test(groups="regression")
 	public void negativeLogin() {
 		//create object of LoginPage
 		LoginPage login=new LoginPage();

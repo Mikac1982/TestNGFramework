@@ -1,5 +1,4 @@
-package com.syntax.testcases;
-
+package com.syntax.practice;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -37,7 +36,6 @@ public class ExcelDemo{
         System.out.println(colNum);
 
         //retrieve all data
-
         for (int i=0; i<rowNum; i++) {
             for (int j=0; j<colNum; j++) {
                 String cellValue=sheet.getRow(i).getCell(j).toString();

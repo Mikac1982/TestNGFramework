@@ -1,4 +1,4 @@
-package com.syntax.testcases;
+package com.syntax.practice;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ public class ExcelLocation {
 		int colNum=sheet.getRow(0).getLastCellNum();
 		System.out.println(rowNum);
 		System.out.println(colNum);
-		
+	
 		for(int i=0; i<rowNum; i++) {
 			for(int j=0; j<colNum; j++) {
 				
@@ -33,6 +33,7 @@ public class ExcelLocation {
 			System.out.println();
 		}
 		
-		
+		workbook.close();
+		fis.close();
 	}
 }

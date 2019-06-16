@@ -1,11 +1,15 @@
 package com.syntax.testcases;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.syntax.pages.HomePage2;
 import com.syntax.pages.LoginPage2;
 import com.syntax.pages.LoginPageWithoutPageFactory;
+import com.syntax.practice.HomePage2;
 import com.syntax.utils.BaseClass;
 import com.syntax.utils.CommonMethods;
 import com.syntax.utils.ConfigsReader;
@@ -33,7 +37,7 @@ public class LoginPageTest2 extends BaseClass{
 		//verification
 		HomePage2 home=new HomePage2();
 		//boolean isDisplayed=home.dashboardText.isDisplayed();
-		Assert.assertTrue(home.dashboardText.isDisplayed());
+		AssertJUnit.assertTrue(home.dashboardText.isDisplayed());
 		System.out.println("Successfully logged in!");
 	}
 	
@@ -52,7 +56,7 @@ public class LoginPageTest2 extends BaseClass{
 	//	String errorText=login.errorMessage.getText();
 	//	System.out.println(errorText);
 		
-	    Assert.assertTrue(login.errorMessage.isDisplayed());
+	    AssertJUnit.assertTrue(login.errorMessage.isDisplayed());
 	    System.out.println("Error message is displayed, not able to login!");
 	}
 	

@@ -1,5 +1,9 @@
 package com.syntax.testcases;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -14,6 +18,8 @@ import com.syntax.pages.LoginPage;
 import com.syntax.utils.BaseClass;
 import com.syntax.utils.CommonMethods;
 import com.syntax.utils.ConfigsReader;
+import com.syntax.utils.Constants;
+import com.syntax.utils.ExcelUtility;
 
 public class AddEmployeePageTest extends BaseClass{
 
@@ -59,7 +65,7 @@ public class AddEmployeePageTest extends BaseClass{
     	String verifText=addEmp.empCheck.getText();
     //  String verifText=addEmp.empCheck.getText().trim();
         System.out.println(verifText);
-        Assert.assertEquals(verifText, fName+" "+lName); //3 times will execute 
+        AssertJUnit.assertEquals(verifText, fName+" "+lName); //3 times will execute 
         System.out.println("Employee was successfully added");
 
         
@@ -88,5 +94,27 @@ public class AddEmployeePageTest extends BaseClass{
 		return data;
 	}
 	
+	@DataProvider(name="Emoloyee Data")
+	public Object getEmpData() {
+		
+		ExcelUtility obj=new ExcelUtility();
+		obj.openExcel(Constants.XL_FILEPATH, "Sheet1");
+		
+		int rows=obj.getRowNum();
+		int cols=obj.getColNum(0);
+		
+		Object[][] data=new Object[rows-1][cols];
+		
+		for(int i=1; i<rows; i++) {
+			for(int y=0; y<cols; y++) {
+				
+				String value=obj.getCellData(i, y);
+				data[i-1][y]=value;
+			}
+		}
+	return data;
+		
+		
+	}
 	
 }

@@ -1,5 +1,10 @@
+
 package com.syntax.testcases;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -8,15 +13,18 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.syntax.pages.AddEmployeePage2;
-import com.syntax.pages.HomePage2;
 import com.syntax.pages.LoginPage2;
+import com.syntax.practice.HomePage2;
 import com.syntax.utils.BaseClass;
 import com.syntax.utils.CommonMethods;
 import com.syntax.utils.ConfigsReader;
+import com.syntax.utils.Constants;
+import com.syntax.utils.ExcelUtility;
 
 public class AddEmployeePageTest2 extends BaseClass{
 
-	@Test(dataProvider="employee details")
+	@Test(dataProvider="Employee Data")
+//	@Test(dataProvider="employee details", groups="regression")
 	public void addEmployee(String fName, String mName, String lName, String location) throws InterruptedException {
 	
 	LoginPage2 login=new LoginPage2();
@@ -34,33 +42,14 @@ public class AddEmployeePageTest2 extends BaseClass{
 	
 	//to click on drop down
 	CommonMethods.click(addEmp.location);
-	
-	//this DD is not written using <select> tag, but it's written using with <li> tag
-	//1. identify list
-    //2. get all children(elements) with li tags
-    //3. loop through each li tag and get text
-    //4. if text is matching then we click
-    //5. break
-	
-//	CommonMethods.selectList(addEmp.locationList, location);
-
-		List<WebElement> listLocations = addEmp.locationList.findElements(By.tagName("li"));
-		for (WebElement li : listLocations) {
-			String liText = li.getAttribute("innerHTML");
-
-			if (liText.contains(location)) {
-				li.click();
-				break;
-			}
-		}
-	
+	CommonMethods.selectList(addEmp.locationList, location);
 	CommonMethods.click(addEmp.saveBtn);
 	
 //	CommonMethods.waitForElementBeClickable(addEmp.empCheck, 20);
 	String verifText=addEmp.empCheck.getText();
 	System.out.println(verifText);
 	
-	Assert.assertEquals(verifText, fName+" "+lName);
+	AssertJUnit.assertEquals(verifText, fName+" "+lName);
 	System.out.println("Employee was successfully added");
 
 	Thread.sleep(4000);
@@ -87,5 +76,27 @@ public class AddEmployeePageTest2 extends BaseClass{
 		
 	return data;
 	}
+	
+	@DataProvider(name="Employee Data")
+	public Object[][] getEmpData() {
 
+		ExcelUtility  obj=new ExcelUtility();
+		obj.openExcel(Constants.XL_FILEPATH, "Sheet1");
+
+		int rows=obj.getRowNum();//13
+		int cols=obj.getColNum(0);//4
+
+		Object[][] data=new Object[rows-1][cols];//new Object[12][4]
+
+		for (int i=1; i<rows; i++) {
+			for (int j=0; j<cols; j++) {
+				String value=obj.getCellData(i, j);
+				//at first iteration data[1][0]
+
+				//at last iteration data[12][3]
+				data[i-1][j]=value;//data[0][0];
+			}
+		}
+		return data;
+	}
 }

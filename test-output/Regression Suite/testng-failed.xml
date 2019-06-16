@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Regression Suite]">
+  <test thread-count="5" name="Regression Test(failed)">
+    <groups>
+      <run>
+        <include name="regression"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.syntax.testcases.AddEmployeePageTest2">
+        <methods>
+          <include name="addEmployee" invocation-numbers="0 1 2"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.syntax.testcases.AddEmployeePageTest2 -->
+      <class name="com.syntax.testcases.AddEmployyePageTestAsel">
+        <methods>
+          <include name="setUp"/>
+          <include name="addEmployee"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.syntax.testcases.AddEmployyePageTestAsel -->
+    </classes>
+  </test> <!-- Regression Test(failed) -->
+</suite> <!-- Failed suite [Regression Suite] -->

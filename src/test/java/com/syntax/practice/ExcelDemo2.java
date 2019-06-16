@@ -1,4 +1,4 @@
-package com.syntax.testcases;
+package com.syntax.practice;
 
 import java.io.FileInputStream;
 import java.io.IOException;

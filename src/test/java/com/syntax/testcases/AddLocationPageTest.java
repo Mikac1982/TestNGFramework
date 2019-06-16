@@ -1,5 +1,15 @@
 package com.syntax.testcases;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -10,6 +20,8 @@ import com.syntax.pages.LoginPage;
 import com.syntax.utils.BaseClass;
 import com.syntax.utils.CommonMethods;
 import com.syntax.utils.ConfigsReader;
+import com.syntax.utils.Constants;
+import com.syntax.utils.ExcelUtility;
 
 public class AddLocationPageTest extends BaseClass{
 	/* Test Case: Add Location
@@ -19,22 +31,20 @@ public class AddLocationPageTest extends BaseClass{
 	4. Save location and verify it has been successfully saved.
 	*/
 	
-	@Test(dataProvider="add location")
-	public void addLocation(String name, String country, String city, String zip) throws InterruptedException {
+//	@Test(dataProvider="add location")
+	@Test(dataProvider="Location data")
+	public void addLocation(String name, String country, String city, String zip) {
 		
 	LoginPage login=new LoginPage();
 	HomePage home=new HomePage();
 	AddLocationPage addLoc=new AddLocationPage();
 	
-	//login to the OrangeHRM
 	login.login(ConfigsReader.getProperty("username"), ConfigsReader.getProperty("password"));
 	
 	CommonMethods.click(home.admin);
 	CommonMethods.click(home.organization);
 	CommonMethods.click(home.locations);
 	CommonMethods.click(home.add);
-	
-	Thread.sleep(4000);
 	
 	CommonMethods.sendText(addLoc.name, name);
 	CommonMethods.click(addLoc.countryDD);
@@ -44,10 +54,28 @@ public class AddLocationPageTest extends BaseClass{
 	
 	CommonMethods.click(addLoc.saveBtn);
 	
-	Assert.assertTrue(addLoc.locText.isDisplayed());
+	AssertJUnit.assertTrue(addLoc.locText.isDisplayed());
 	System.out.println("Location was successfully added");
 	
-	Thread.sleep(4000);
+	}
+	
+	@DataProvider(name="Location data")
+	public Object[][] getLocationData() {
+		
+		ExcelUtility  obj=new ExcelUtility();
+		obj.openExcel(Constants.XL_FILEPATH, "AddLocation");
+
+		int rows=obj.getRowNum();
+		int cols=obj.getColNum(0);
+
+		Object[][] data=new Object[rows-1][cols];
+		for (int i=1; i<rows; i++) {
+			for (int j=0; j<cols; j++) {
+				String value=obj.getCellData(i, j);
+				data[i-1][j]=value;
+			}
+		}
+	return data;
 	}
 	
 	@DataProvider(name="add location")
@@ -75,5 +103,8 @@ public class AddLocationPageTest extends BaseClass{
 	data[3][3]="03042";
 
 	return data;
+	
 	}
+	
+	
 }
